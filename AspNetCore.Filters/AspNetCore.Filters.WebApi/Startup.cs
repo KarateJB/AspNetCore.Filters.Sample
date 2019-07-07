@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore.Filters.WebApi.Controllers;
 using AspNetCore.Filters.WebApi.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +30,6 @@ namespace AspNetCore.Filters.WebApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<LogFilter>();
-            services.AddScoped<LogParamFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

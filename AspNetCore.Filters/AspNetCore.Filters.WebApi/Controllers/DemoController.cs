@@ -11,7 +11,7 @@ namespace AspNetCore.Filters.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DemoController : ControllerBase
+    public class DemoController : ControllerBase, IMyApiController
     {
         private readonly ILogger<DemoController> _logger = null;
 
