@@ -21,7 +21,8 @@ namespace AspNetCore.Filters.WebApi.Controllers
         }
 
         [HttpGet("MyAction1")]
-        [TypeFilter(typeof(LogFilter), Arguments = new object[] { EnumAction.Action1 })]
+        //[TypeFilter(typeof(LogFilter), Arguments = new object[] { EnumAction.Action1 })]
+        [LogParamFilter(Action = EnumAction.Action1)]
         public async Task<IActionResult> MyAction1()
         {
             return Ok();
