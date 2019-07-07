@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace AspNetCore.Filters.WebApi.Utils
 {
-    public class LogFilter: Attribute, IActionFilter
+    public class LogFilter: IActionFilter
     {
         private readonly ILogger<LogFilter> _logger = null;
         private readonly EnumAction _action;

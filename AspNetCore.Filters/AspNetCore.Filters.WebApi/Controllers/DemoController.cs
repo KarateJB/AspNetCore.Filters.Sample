@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AspNetCore.Filters.WebApi.Models;
 using AspNetCore.Filters.WebApi.Utils;
@@ -29,7 +30,7 @@ namespace AspNetCore.Filters.WebApi.Controllers
         }
 
         [HttpGet("MyAction2")]
-        [TypeFilter(typeof(LogFilter), Arguments = new object[] { EnumAction.Action2 })]
+        [TypeFilter(typeof(LogFilter), Arguments = new object[] { EnumAction.Action2, new HttpClient() })]
         public async Task<IActionResult> MyAction2()
         {
             return Ok();

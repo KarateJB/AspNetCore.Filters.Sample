@@ -12,21 +12,15 @@ namespace AspNetCore.Filters.WebApi.Utils
 {
     public class LogParamFilter : Attribute, IActionFilter
     {
-        //private readonly ILogger<LogFilter> _logger = null;
-
         public EnumAction Action { get; set; }
-
-        public LogParamFilter()
-        {
-        }
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
             string msg = $"[OnActionExecuted] Request for {this.Action.ToString()}";
 
             // 1. Use injected ILogger<LogParamFilter>
-            //var logger = (ILogger<LogParamFilter>)context.HttpContext.RequestServices.GetService(typeof(ILogger<LogParamFilter>));
-            //logger.LogInformation(msg);
+            // var logger = (ILogger<LogParamFilter>)context.HttpContext.RequestServices.GetService(typeof(ILogger<LogParamFilter>));
+            // logger.LogInformation(msg);
 
             // 2. Get injected logger from context
             Type generic = typeof(ILogger<>);
