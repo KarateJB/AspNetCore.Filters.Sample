@@ -12,7 +12,7 @@ namespace AspNetCore.Filters.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DemoController : ControllerBase, IMyApiController
+    public class DemoController : ControllerBase
     {
         private readonly ILogger<DemoController> _logger = null;
 
@@ -30,7 +30,7 @@ namespace AspNetCore.Filters.WebApi.Controllers
         }
 
         [HttpGet("MyAction2")]
-        [TypeFilter(typeof(LogFilter), Arguments = new object[] { EnumAction.Action2, new HttpClient() })]
+        [TypeFilter(typeof(LogFilter), Arguments = new object[] { EnumAction.Action2})]
         public async Task<IActionResult> MyAction2()
         {
             return Ok();
@@ -43,5 +43,11 @@ namespace AspNetCore.Filters.WebApi.Controllers
             return Ok();
         }
 
+        [HttpPost("SignIn")]
+        [ServiceFilter(typeof(HybridFilter))]
+        public async Task<IActionResult> SignIn([FromBody] User user)
+        {
+            return Ok();
+        }
     }
 }

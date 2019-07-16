@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace AspNetCore.Filters.WebApi.Models
 {
-    public interface IMyApiController
+    public class User
     {
+        public string Name { get; set; }
+        public string Password { get; set; }
     }
 }
