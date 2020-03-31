@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using AspNetCore.Filters.WebApi.Controllers;
 using AspNetCore.Filters.WebApi.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,7 +10,7 @@ namespace AspNetCore.Filters.WebApi.Utils
 {
     public class LogParamFilter : Attribute, IActionFilter
     {
-        public EnumAction Action { get; set; }
+        public EnumAction Action { get; set; } = EnumAction.DontCare;
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
@@ -26,10 +24,13 @@ namespace AspNetCore.Filters.WebApi.Utils
             Type generic = typeof(ILogger<>);
             Type constructed = generic.MakeGenericType(context.Controller.GetType());
             var serviceObj = context.HttpContext.RequestServices.GetServices(constructed).FirstOrDefault();
-            if (serviceObj.GetType().Equals(typeof(Logger<DemoController>)))
+            if (serviceObj is Logger<DemoController> demoLogger)
             {
-                var logger = (ILogger<DemoController>)serviceObj;
-                logger.LogInformation(msg);
+                demoLogger.LogInformation(msg);
+            }
+            else if (serviceObj is Logger<DemoGlobalController> demoGlobalLogger)
+            {
+                demoGlobalLogger.LogInformation(msg);
             }
         }
 

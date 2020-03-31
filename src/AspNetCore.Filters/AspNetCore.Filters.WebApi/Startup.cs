@@ -1,4 +1,5 @@
 ﻿using AspNetCore.Filters.WebApi.Utils;
+using AspNetCore.Filters.WebApi.Utils.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace AspNetCore.Filters.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
+                .AddMvcOptions()
                 .AddNewtonsoftJson()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
