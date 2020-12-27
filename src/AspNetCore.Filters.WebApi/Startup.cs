@@ -1,4 +1,5 @@
-﻿using AspNetCore.Filters.WebApi.Utils;
+﻿using AspNetCore.Filters.WebApi.Models;
+using AspNetCore.Filters.WebApi.Utils;
 using AspNetCore.Filters.WebApi.Utils.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,8 @@ namespace AspNetCore.Filters.WebApi
                 .AddMvcOptions()
                 .AddNewtonsoftJson()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.Configure<AppSettings>(this.Configuration);
 
             services.AddScoped<HybridFilter>();
         }
