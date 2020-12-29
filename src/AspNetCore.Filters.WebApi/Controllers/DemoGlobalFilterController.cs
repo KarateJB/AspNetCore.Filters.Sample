@@ -7,18 +7,20 @@ using AspNetCore.Filters.WebApi.Models;
 using AspNetCore.Filters.WebApi.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.FeatureManagement.Mvc;
 
 namespace AspNetCore.Filters.WebApi.Controllers
 {
+    [FeatureGate(FeatureFlags.DemoGlobalFilter)]
     [Route("api/[controller]")]
     [ApiController]
     public class DemoGlobalController : ControllerBase
     {
-        private readonly ILogger<DemoGlobalController> _logger = null;
+        private readonly ILogger<DemoGlobalController> logger = null;
 
         public DemoGlobalController(ILogger<DemoGlobalController> logger)
         {
-            this._logger = logger;
+            this.logger = logger;
         }
 
         [HttpGet("MyAction1")]
