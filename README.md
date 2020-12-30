@@ -7,3 +7,13 @@
 - [[ASP.Net Core] Hybrid Filter](https://karatejb.blogspot.com/2019/07/aspnet-core-hybrid-filter.html)
 
 
+## Feature Management
+
+### Custom feature provider
+
+To test custom feature provider, use [json-server](https://github.com/typicode/json-server) to load the `feature_management.json` and listen on port: `3000`.
+
+```s
+$ cd src\AspNetCore.Filters.WebApi\Assets
+$ json-server --watch feature_management.json
+```

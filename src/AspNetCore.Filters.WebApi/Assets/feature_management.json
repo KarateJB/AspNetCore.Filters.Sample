@@ -3,8 +3,8 @@
     "FeatureManagement": {
       "ApiDoc": false,
       "Demo": true,
-      "DemoGlobalFilter": false,
-      "Tests": false,
+      "DemoGlobalFilter": true,
+      "Tests": true,
       "ServerEnvHeader": true
     }
   }
