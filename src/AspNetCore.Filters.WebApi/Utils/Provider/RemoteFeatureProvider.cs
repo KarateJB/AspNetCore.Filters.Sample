@@ -16,6 +16,7 @@ namespace AspNetCore.Filters.WebApi.Utils.Provider
     /// <summary>
     /// Remote Feature Provider
     /// </summary>
+    /// <see cref="https://github.com/microsoft/FeatureManagement-Dotnet/blob/main/src/Microsoft.FeatureManagement/ConfigurationFeatureDefinitionProvider.cs"/>
     public class RemoteFeatureProvider : IFeatureDefinitionProvider
     {
         private const string FEATURE_MANAGEMENT_SECTION = "FeatureManagement";
@@ -26,7 +27,6 @@ namespace AspNetCore.Filters.WebApi.Utils.Provider
         private readonly IMemoryCache memoryCache;
         private IConfiguration configuration;
         private ConcurrentDictionary<string, FeatureDefinition> definitions;
-        private readonly Semaphore semaphore = null;
 
         /// <summary>
         /// Custructor
@@ -43,8 +43,6 @@ namespace AspNetCore.Filters.WebApi.Utils.Provider
             this.httpClientFactory = httpClientFactory;
             this.memoryCache = memoryCache;
             this.definitions = new ConcurrentDictionary<string, FeatureDefinition>();
-
-            this.semaphore = new Semaphore(1, 1);
         }
 
         public async IAsyncEnumerable<FeatureDefinition> GetAllFeatureDefinitionsAsync()
