@@ -1,0 +1,11 @@
+{
+  "feature-configuration": {
+    "FeatureManagement": {
+      "ApiDoc": false,
+      "Demo": true,
+      "DemoGlobalFilter": false,
+      "Tests": false,
+      "ServerEnvHeader": true
+    }
+  }
+}

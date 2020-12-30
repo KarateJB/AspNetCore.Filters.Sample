@@ -1,9 +1,0 @@
-{
-  "FeatureManagement": {
-    "ApiDoc": false,
-    "Demo": true,
-    "DemoGlobalFilter": true,
-    "Tests": true,
-    "ServerEnvHeader": false
-  }
-}
