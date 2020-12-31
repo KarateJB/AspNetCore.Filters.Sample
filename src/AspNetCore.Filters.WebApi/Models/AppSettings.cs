@@ -10,5 +10,10 @@
         /// </summary>
         /// <remarks>When matches, the API with DisableApiFilter will return 404</remarks>
         public string EnvForDisableApiFilter { get; set; }
+
+        /// <summary>
+        /// Remote feature management API
+        /// </summary>
+        public string FeatureManagementUri { get; set; }
     }
 }

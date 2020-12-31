@@ -16,32 +16,39 @@ namespace AspNetCore.Filters.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
+        public IWebHostEnvironment Env { get; set; }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AppSettings>(this.Configuration);
             services.AddHttpClient();
             services.AddMemoryCache();
 
             // Add feature mangement services 
-            services
-                .AddSingleton<IFeatureDefinitionProvider, RemoteFeatureProvider>()
-                .AddFeatureManagement();
+            if (!this.Env.IsDevelopment())
+            {
+                services
+                  .AddSingleton<IFeatureDefinitionProvider, RemoteFeatureDefinitionProvider>()
+                  .AddFeatureManagement();
+            }
+            else
+            {
+                services.AddFeatureManagement();
+            }
 
             services
                 .AddControllers(o => o.Filters.AddForFeature<CustomHeaderFilter>(nameof(FeatureFlags.ServerEnvHeader))) // Add the global IAsyncActionFilter by feature toggle
                 .AddMvcOptions() // Custom extension to add global filters
                 .AddNewtonsoftJson()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
-            services.Configure<AppSettings>(this.Configuration);
-
 
             // Inject custom filters
             services.AddScoped<HybridFilter>();

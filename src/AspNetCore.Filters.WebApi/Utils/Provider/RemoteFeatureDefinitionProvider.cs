@@ -5,10 +5,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using AspNetCore.Filters.WebApi.Models;
 using AspNetCore.Filters.WebApi.Utils.Factory;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement;
 
 namespace AspNetCore.Filters.WebApi.Utils.Provider
@@ -17,16 +19,17 @@ namespace AspNetCore.Filters.WebApi.Utils.Provider
     /// Remote Feature Provider
     /// </summary>
     /// <see cref="https://github.com/microsoft/FeatureManagement-Dotnet/blob/main/src/Microsoft.FeatureManagement/ConfigurationFeatureDefinitionProvider.cs"/>
-    public class RemoteFeatureProvider : IFeatureDefinitionProvider
+    public class RemoteFeatureDefinitionProvider : IFeatureDefinitionProvider
     {
         private const string FEATURE_MANAGEMENT_SECTION = "FeatureManagement";
         private const string FFEATURE_FILTER_SECTION = "EnabledFor";
         private const int CACHE_TIME = 180; // Cache time in seconds
-        private readonly ILogger<RemoteFeatureProvider> logger;
+        private readonly AppSettings appSettings;
+        private readonly ILogger<RemoteFeatureDefinitionProvider> logger;
         private readonly IHttpClientFactory httpClientFactory;
         private readonly IMemoryCache memoryCache;
-        private IConfiguration configuration;
         private ConcurrentDictionary<string, FeatureDefinition> definitions;
+        private IConfiguration configuration;
 
         /// <summary>
         /// Custructor
@@ -34,17 +37,23 @@ namespace AspNetCore.Filters.WebApi.Utils.Provider
         /// <param name="logger">Logger</param>
         /// <param name="httpClientFactory">HttpClientFactory</param>
         /// <param name="memoryCache">Memory cache</param>
-        public RemoteFeatureProvider(
-            ILogger<RemoteFeatureProvider> logger,
+        public RemoteFeatureDefinitionProvider(
+            ILogger<RemoteFeatureDefinitionProvider> logger,
+            IOptions<AppSettings> configuration,
             IHttpClientFactory httpClientFactory,
             IMemoryCache memoryCache)
         {
+            this.appSettings = configuration.Value;
             this.logger = logger;
             this.httpClientFactory = httpClientFactory;
             this.memoryCache = memoryCache;
             this.definitions = new ConcurrentDictionary<string, FeatureDefinition>();
         }
 
+        /// <summary>
+        /// Get all feature definitions
+        /// </summary>
+        /// <returns>Async enumerable of FeatrueDefinition</returns>
         public async IAsyncEnumerable<FeatureDefinition> GetAllFeatureDefinitionsAsync()
         {
             await this.reloadConfiguration();
@@ -55,6 +64,11 @@ namespace AspNetCore.Filters.WebApi.Utils.Provider
             }
         }
 
+        /// <summary>
+        /// Get single feature definition
+        /// </summary>
+        /// <param name="featureName">Feature name</param>
+        /// <returns>FeatureDefinition</returns>
         public async Task<FeatureDefinition> GetFeatureDefinitionAsync(string featureName)
         {
             if (featureName == null)
@@ -69,12 +83,13 @@ namespace AspNetCore.Filters.WebApi.Utils.Provider
 
         private async Task reloadConfiguration()
         {
+            string remoteApiUri = this.appSettings.FeatureManagementUri;
             if (!this.memoryCache.TryGetValue(CacheKeys.FeatureConfig, out IConfiguration featureConfig))
             {
                 this.definitions.Clear();
 
                 using var httpClient = this.httpClientFactory.CreateClient();
-                var streamResponse = await httpClient.GetStreamAsync("http://localhost:3000/feature-configuration"); // Use json-server to run the json file at /AspNetCore.Filters.WebApi/Assets/feature_management.json
+                var streamResponse = await httpClient.GetStreamAsync(remoteApiUri); // Use json-server to run the json file at /AspNetCore.Filters.WebApi/Assets/feature_management.json
                 this.configuration = new ConfigurationBuilder().AddJsonStream(streamResponse).Build();
 
                 this.memoryCache.Set(CacheKeys.FeatureConfig, this.configuration, TimeSpan.FromSeconds(CACHE_TIME));
@@ -141,6 +156,5 @@ namespace AspNetCore.Filters.WebApi.Utils.Provider
             else
                 return this.configuration.GetChildren();
         }
-
     }
 }
