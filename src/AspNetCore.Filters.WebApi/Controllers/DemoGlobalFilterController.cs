@@ -24,21 +24,12 @@ namespace AspNetCore.Filters.WebApi.Controllers
         }
 
         [HttpGet("MyAction1")]
-        public async Task<IActionResult> MyAction1()
-        {
-            return Ok();
-        }
+        public async Task<IActionResult> MyAction1() => Ok();
 
         [HttpGet("MyAction2")]
-        public async Task<IActionResult> MyAction2()
-        {
-            return Ok();
-        }
+        public async Task<IActionResult> MyAction2() => Ok();
 
         [HttpGet("MyAction3")]
-        public async Task<IActionResult> MyAction3()
-        {
-            return Ok();
-        }
+        public async Task<IActionResult> MyAction3() => Ok();
     }
 }

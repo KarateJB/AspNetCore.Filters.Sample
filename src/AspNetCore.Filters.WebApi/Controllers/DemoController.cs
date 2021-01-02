@@ -30,31 +30,19 @@ namespace AspNetCore.Filters.WebApi.Controllers
         [HttpGet("MyAction1")]
         //[TypeFilter(typeof(LogFilter), Arguments = new object[] { EnumAction.Action1 })]
         [LogParamFilter(Action = EnumAction.Action1)]
-        public async Task<IActionResult> MyAction1()
-        {
-            return Ok();
-        }
+        public async Task<IActionResult> MyAction1() => Ok();
 
         [HttpGet("MyAction2")]
         [TypeFilter(typeof(LogFilter), Arguments = new object[] { EnumAction.Action2 })]
-        public async Task<IActionResult> MyAction2()
-        {
-            return Ok();
-        }
+        public async Task<IActionResult> MyAction2() => Ok();
 
         [HttpGet("MyAction3")]
         [TypeFilter(typeof(LogFilter), Arguments = new object[] { EnumAction.Action3 })]
-        public async Task<IActionResult> MyAction3()
-        {
-            return Ok();
-        }
+        public async Task<IActionResult> MyAction3() => Ok();
 
         [HttpPost("SignIn")]
         [ServiceFilter(typeof(HybridFilter))]
-        public async Task<IActionResult> SignIn([FromBody] User user)
-        {
-            return Ok();
-        }
+        public async Task<IActionResult> SignIn([FromBody] User user) => Ok();
 
         [HttpGet("TestDisableApiFilter")]
         [ApiExplorerSettings(IgnoreApi = true)] // Optional, if you dont want expose this API to something like Swagger.
