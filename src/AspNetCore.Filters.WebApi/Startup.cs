@@ -47,8 +47,7 @@ namespace AspNetCore.Filters.WebApi
             services
                 .AddControllers(o => o.Filters.AddForFeature<CustomHeaderFilter>(nameof(FeatureFlags.ServerEnvHeader))) // Add the global IAsyncActionFilter by feature toggle
                 .AddMvcOptions() // Custom extension to add global filters
-                .AddNewtonsoftJson()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                .AddNewtonsoftJson();
 
             // Inject custom filters
             services.AddScoped<HybridFilter>();
