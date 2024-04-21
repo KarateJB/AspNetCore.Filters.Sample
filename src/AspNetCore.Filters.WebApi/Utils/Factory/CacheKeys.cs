@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.Filters.WebApi.Utils.Factory
+namespace AspNetCore.Filters.WebApi.Utils.Factory
 {
     /// <summary>
     /// Cache keys

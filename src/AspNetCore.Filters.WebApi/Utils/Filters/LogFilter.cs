@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AspNetCore.Filters.WebApi.Models;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;

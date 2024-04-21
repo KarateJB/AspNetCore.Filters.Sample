@@ -1,4 +1,4 @@
-﻿using AspNetCore.Filters.WebApi.Models;
+using AspNetCore.Filters.WebApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 

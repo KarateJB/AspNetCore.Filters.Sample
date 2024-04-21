@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Threading.Tasks;
 using AspNetCore.Filters.WebApi.Models;
 using AspNetCore.Filters.WebApi.Utils;
