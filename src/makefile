@@ -11,7 +11,7 @@ clean:
 				dotnet clean -nologo -consoleLoggerParameters:NoSummary -verbosity:quiet
 
 run: clean build
-				dotnet run --project ./AspNetCore.Filters.WebApi/AspNetCore.Filters.WebApi.csproj --property:Configuration=AspNetCore.Filters.WebApi
+				dotnet run --project ./AspNetCore.Filters.WebApi/AspNetCore.Filters.WebApi.csproj --launch-profile AspNetCore.Filters.WebApi --property:Configuration=Debug
 
 publish:
 				# MSBuild.exe -clp:ErrorsOnly -nologo -m /property:Configuration=Release

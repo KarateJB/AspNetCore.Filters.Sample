@@ -8,6 +8,21 @@
 - [[ASP.NET Core] Feature toggle](https://karatejb.blogspot.com/2020/12/aspnet-core-feature-toggle.html)
 
 
+## Demo
+
+```s
+curl -X GET https://localhost:5001/api/Demo/MyAction1 --head
+curl -X GET https://localhost:5001/api/Demo/MyAction1 --head
+curl -X GET https://localhost:5001/api/Demo/MyAction1 --head
+curl -X GET https://localhost:5001/api/Demo/SignIn --head
+curl -X GET https://localhost:5001/api/Demo/TestDisableApiFilter --head
+```
+
+```s
+curl -X GET https://localhost:5001/api/DemoGlobal/MyAction1 --head
+curl -X GET https://localhost:5001/api/DemoGlobal/MyAction2 --head
+curl -X GET https://localhost:5001/api/DemoGlobal/MyAction3 --head
+```
 
 ## Feature Toggle
 
