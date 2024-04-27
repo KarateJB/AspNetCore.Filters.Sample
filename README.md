@@ -8,8 +8,54 @@
 - [[ASP.NET Core] Feature toggle](https://karatejb.blogspot.com/2020/12/aspnet-core-feature-toggle.html)
 
 
+## Demo
+
+```s
+curl -X GET https://localhost:5001/api/Demo/MyAction1 --head
+curl -X GET https://localhost:5001/api/Demo/MyAction1 --head
+curl -X GET https://localhost:5001/api/Demo/MyAction1 --head
+curl -X GET https://localhost:5001/api/Demo/SignIn --head
+curl -X GET https://localhost:5001/api/Demo/TestDisableApiFilter --head
+```
+
+```s
+curl -X GET https://localhost:5001/api/DemoGlobal/MyAction1 --head
+curl -X GET https://localhost:5001/api/DemoGlobal/MyAction2 --head
+curl -X GET https://localhost:5001/api/DemoGlobal/MyAction3 --head
+```
 
 ## Feature Toggle
+
+### TimeWindow
+
+```json
+{
+  "FeatureManagement": {
+    "Demo": {
+      "RequirementType": "All", // All, Any
+      "EnabledFor": [
+        {
+          "Name": "TimeWindow",
+          "Parameters": {
+            "Start": "2024-04-24T06:30:00Z",
+            "End": "2024-04-24T15:50:00Z"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+- `RequirementType`: 
+    - "All": should meet all conditions in `EnableFor` to enable the feature.
+    - "Any": meet any condition in `EnableFor` to enable the feature.
+- TimeWindow condition:
+    - If only `Start` is set, the feature will be enabled at the `Start` datetime and will never be diabled after it.
+    - If only `End` is set, the feature will be enabled right away and will be disabled at and after `End` datetime.
+    - If both `Start` and `End` are set, the feature will be enabled between the two datetimes.
+    - The datetime is GMT, and the format can be "2024-04-24T06:30:00Z" or "Wed, 24 April 2024 06:30:00 GMT".
+
 
 ### Remote feature definition provider (Get feature flags from other service)
 
@@ -35,6 +81,8 @@ And set your `ASPNETCORE_ENVIRONMENT` to `RemoteFeatureFlags` in `launchSettings
 
 See the article [[ASP.NET Core] Feature toggle](https://karatejb.blogspot.com/2020/12/aspnet-core-feature-toggle.html) for more details.
 
+## Reference
 
+- [microsoft/FeatureManagement-Dotnet](https://github.com/microsoft/FeatureManagement-Dotnet)
 
 

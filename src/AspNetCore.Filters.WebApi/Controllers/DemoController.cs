@@ -1,4 +1,3 @@
-﻿using System.Net;
 using System.Threading.Tasks;
 using AspNetCore.Filters.WebApi.Models;
 using AspNetCore.Filters.WebApi.Utils;
@@ -54,7 +53,7 @@ namespace AspNetCore.Filters.WebApi.Controllers
             {
                 return this.Ok();
             }
-            else 
+            else
             {
                 return StatusCode(StatusCodes.Status404NotFound);
             }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AspNetCore.Filters.WebApi.Models;
 using AspNetCore.Filters.WebApi.Utils.ModelConvention;
 using Microsoft.AspNetCore.Mvc;

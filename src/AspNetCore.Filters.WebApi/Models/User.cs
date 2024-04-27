@@ -1,4 +1,4 @@
-﻿namespace AspNetCore.Filters.WebApi.Models
+namespace AspNetCore.Filters.WebApi.Models
 {
     public class User
     {

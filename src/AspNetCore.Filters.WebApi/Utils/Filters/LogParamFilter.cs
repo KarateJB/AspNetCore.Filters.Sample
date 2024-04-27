@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using AspNetCore.Filters.WebApi.Controllers;
 using AspNetCore.Filters.WebApi.Models;

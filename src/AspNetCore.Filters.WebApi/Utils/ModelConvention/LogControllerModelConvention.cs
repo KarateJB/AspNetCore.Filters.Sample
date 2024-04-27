@@ -1,4 +1,4 @@
-﻿using AspNetCore.Filters.WebApi.Controllers;
+using AspNetCore.Filters.WebApi.Controllers;
 using AspNetCore.Filters.WebApi.Models;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
